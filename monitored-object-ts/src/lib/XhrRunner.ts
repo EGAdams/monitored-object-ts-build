@@ -1,6 +1,10 @@
+import IRunner from "./IRunner";
+
 /** @class XhrRunner class */
-export default class XhrRunner {
-    constructor( config ) { 
+export default class XhrRunner implements IRunner {
+    url: string;
+
+    constructor( config ) {
         this.url = config.api_path; } // establish communication address
         async run( apiArgs ) {
             const xhr = new XMLHttpRequest();
