@@ -1,0 +1,16 @@
+    "configurations": [
+    // To debug, make sure a *.spec.ts file is active in the editor, then run a configuration
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch All Tests",
+            "program": "${workspaceFolder}\\typescript_source\\testing\\Tester.ts",
+            // "preLaunchTask": "npm: compile_typescript",
+            "sourceMaps": true,
+            "smartStep": true,
+            "internalConsoleOptions": "openOnSessionStart",
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ]
+        }
+    ]

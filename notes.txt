@@ -1,0 +1,6 @@
+Moved to this directory on sunday september 25, 2022.
+bills playing dolphins.  plan for soho this evening.
+I want to use this log object processor as a framework to build the new
+monitored object ts.
+there are a couple of monitored object ts running around; this is 
+the latest.

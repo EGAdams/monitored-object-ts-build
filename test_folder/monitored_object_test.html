@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="1" /> -->
+    <title>Monitored Object test</title>
+    <script type="module">
+        
+    </script>
+</head>
+<body>
+    <script type="module">
+        import MonitoredObject from "./ /MonitoredObject.js";
+        import SourceData      from "../SourceData.js";
+        import Model           from "../Model.js";
+        import FetchRunner     from "../FetchRunner.js";
+        import XhrRunner       from "../XhrRunner.js";
+        // let test_url = "https://americansjewelry.com/test2/local-php-api/index.php/"
+        let test_url = "http://localhost:51666/";
+        console.log( "creating source data object... " );
+        let configuration_object = { url: test_url, runner: FetchRunner, new_id: "42" }
+        let monitoredObject = new MonitoredObject( configuration_object );
+        monitoredObject.logUpdate( "*** ERROR: this is a test for the error log. ***" );
+        let model       = new Model( new SourceData( configuration_object ));
+        let data_config = { object_view_id: "MonitoredObject_42" };
+        let callback = function() { console.table( object_data ); };
+        // let object_data = model.selectObject( data_config, callback ); debug this after we have this object 
+        // console.log( object_data );
+    </script>
+    
+</body>
+</html>
