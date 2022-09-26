@@ -6,8 +6,8 @@
  *     url   : the place where the runner is going to make the api call
  * }
  * The call type, object id and object data
- * @param {function} callback Our fake DB uses callbacks because in
- * real life you probably would be making AJAX calls
+ * @param {function} callback
+ *
  */
 export default class SourceData {
     RunnerObject: any;

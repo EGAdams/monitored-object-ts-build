@@ -1,5 +1,4 @@
 import SourceData from "./SourceData";
-
 /** @class Model */
 /**
  * Creates a new Model instance and hooks up the sourceData.

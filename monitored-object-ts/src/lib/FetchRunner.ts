@@ -25,5 +25,4 @@ export default class FetchRunner {
             console.log( "data: " + data );
         }); }
 }
-
 // xhr.setRequestHeader( "Content-Type", "application/x-www-form-urlencoded" ); // allows "sql="... syntax!

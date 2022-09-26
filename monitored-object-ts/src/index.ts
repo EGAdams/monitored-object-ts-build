@@ -8,3 +8,5 @@ export * from './lib/DataSource';
 export * from './lib/IApiArgs';
 export * from './lib/LogObjectContainerSource';
 export * from './lib/ISourceConfig';
+export * from './lib/FetchRunner';
+export * from './lib/Model'

@@ -1,6 +1,3 @@
-/* eslint-disable functional/prefer-readonly-type */
-/* eslint-disable functional/no-throw-statement */
-/* eslint-disable functional/no-class */
 /**
  *  @class FreshToolBox
  *
@@ -20,7 +17,6 @@ export default class FreshToolBox {
      * @return {*}  {Array< unknown >}
      * @memberof FreshToolBox
      */
-    // eslint-disable-next-line functional/no-return-void
     static removeSpecificObjectFromArray ( objectToRemove: unknown, arrayToRemoveItFrom: Array< unknown > ): void {
         arrayToRemoveItFrom.splice( arrayToRemoveItFrom.indexOf( objectToRemove ), 1 ); }
 
@@ -29,9 +25,8 @@ export default class FreshToolBox {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     static isInArray ( objectToSearchFor: any, arrayToSearch: Array< any > ): boolean {
-        // eslint-disable-next-line functional/no-loop-statement
         for ( const element in arrayToSearch ) {
-            if ( arrayToSearch[ element ].id == objectToSearchFor.id ) {
+            if ( arrayToSearch[ element ].id === objectToSearchFor.id ) {
                 return true; }
         }
         return false;

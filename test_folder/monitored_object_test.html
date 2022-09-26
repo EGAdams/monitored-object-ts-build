@@ -12,15 +12,15 @@
 </head>
 <body>
     <script type="module">
-        import MonitoredObject from "../monitored-object-ts/build/main/lib/MonitoredObject.js";
-        import SourceData      from "../monitored-object-ts/build/main/lib/SourceData.js";
-        import Model           from "../monitored-object-ts/build/main/lib/Model.js";
-        import FetchRunner     from "../monitored-object-ts/build/main/lib/FetchRunner.js";
-        import XhrRunner       from "../monitored-object-ts/build/main/lib/XhrRunner.js";
+        import FetchRunner     from "./node_modules/log-object-processor/build/module/lib/FetchRunner.js";
+        import MonitoredObject from "./node_modules/log-object-processor/build/module/lib/MonitoredObject.js";
+        import SourceData      from "./node_modules/log-object-processor/build/module/lib/SourceData.js";
+        import Model           from "./node_modules/log-object-processor/build/module/lib/Model.js";
+        import XhrRunner       from "./node_modules/log-object-processor/build/module/lib/XhrRunner.js";
         // let test_url = "https://americansjewelry.com/test2/local-php-api/index.php/"
-        let test_url = "http://localhost:51666/";
+        let test_url = "http://localhost:55396/";
         console.log( "creating source data object... " );
-        let configuration_object = { url: test_url, runner: FetchRunner, new_id: "42" }
+        let configuration_object = { url: test_url, runner: FetchRunner, new_id: "45" }
         let monitoredObject = new MonitoredObject( configuration_object );
         monitoredObject.logUpdate( "*** ERROR: this is a test for the error log. ***" );
         let model       = new Model( new SourceData( configuration_object ));

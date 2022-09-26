@@ -6,6 +6,7 @@ import { LogObjectContainer } from "./LogObjectContainer";
 // import { LogObjectContainerSource } from "./LogObjectContainerSource";
 import LogObjectFactory from "./LogObjectFactory";
 import { LogObjectProcessor } from "./LogObjectProcessor";
+import MonitoredObject from "./MonitoredObject";
 /**
  * @description
  * creates 10 log objects and adds them to a log object container.
@@ -15,14 +16,16 @@ import { LogObjectProcessor } from "./LogObjectProcessor";
  * @class LogObjectProcessorTest
  * @implements { ITestable }
  */
-export class LogObjectProcessorTest implements ITestable {
+export class LogObjectProcessorTest extends MonitoredObject implements ITestable {
     writtenLogs: Array< ILogObject > = [];
-    constructor() { console.log( 'constructing LogObjectProcessorTest object...' ); }
+    constructor() {
+        super( { new_id: "42" });
+        console.log( 'constructing LogObjectProcessorTest object...' ); }
     testMe(): void {
         const logObjectContainer = new LogObjectContainer();
-        const logObjectFactory   = new LogObjectFactory( this );
+        const logObjectFactory   = new LogObjectFactory();
         for ( let i = 0; i < 3; i++ ) {
-            logObjectContainer.addLog( logObjectFactory.createLogObject( "message_" + i )); }
+            logObjectContainer.addLog( logObjectFactory.createLogObject( "message_" + i, this )); }
         FreshToolBox.assert( logObjectContainer.getLogObjects().length === 3, "logObjectContainer.getLogObjects().length === 3" );
         const logObjectProcessor = new LogObjectProcessor( logObjectContainer );
         logObjectProcessor.updateQue();
@@ -30,7 +33,7 @@ export class LogObjectProcessorTest implements ITestable {
         if ( logObjectProcessor.writtenLogs.length !== 3 && logObjectProcessor.unwrittenLogs.length !== 0 ) {
             console.error( "*** LogObjectProcessorTest failed! ***" ); }
         for ( let i = 0; i < 6; i++ ) {
-            logObjectContainer.addLog( logObjectFactory.createLogObject( "message_" + i )); }
+            logObjectContainer.addLog( logObjectFactory.createLogObject( "message_" + i, this )); }
         logObjectProcessor.updateQue();
         logObjectProcessor.processLogObjects();
 
@@ -54,8 +57,6 @@ export class LogObjectProcessorTest implements ITestable {
             method: "constructor"
         }
 
-
-
         logObjectContainer.addLog( logObject1 );
         logObjectContainer.addLog( logObject2 );
         logObjectProcessor.updateQue();
@@ -68,7 +69,7 @@ export class LogObjectProcessorTest implements ITestable {
         logObjectProcessor.updateQue();
         logObjectProcessor.processLogObjects();
 
-        if ( logObjectProcessor.writtenLogs.length == 11 && logObjectProcessor.unwrittenLogs.length === 0 ) {
+        if ( logObjectProcessor.writtenLogs.length === 11 && logObjectProcessor.unwrittenLogs.length === 0 ) {
             console.log( "LogObjectProcessorTest Passed add two" );
         }
 
