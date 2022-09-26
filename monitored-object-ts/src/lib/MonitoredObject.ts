@@ -26,11 +26,10 @@ export default class MonitoredObject {
         if ( !this.object_view_id ) {  console.log( "*** ERROR: object needs an id to log. ***" ); return; }
         if ( message.includes( "ERROR" )) { this.monitorLed.setFail(); }
         this.monitorLed.setLedText( message );
-        this.logObjects.push( this.logObjectFactory.createLogObject( message, this                     ));
+        this.logObjects.push( this.logObjectFactory.createLogObject( message, this                   ));
         const data_config = { object_view_id: this.object_view_id, object_data: JSON.stringify( this )};
         this.model.updateObject( data_config, this.processQueryResult                                ); }
 
     processQueryResult( _event, results ) { if ( results.data.length > 0 ) { console.log( results.data ); }}
-
     getObjectViewId() { return this.object_view_id; }
 }
