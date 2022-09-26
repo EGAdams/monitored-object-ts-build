@@ -5,6 +5,7 @@
   ],
   "jsRules": {},
   "rules": {
+    "no-explicit-any": false,
     "no-undef": false,
     "typedef-whitespace": false,
     "import-spacing": false,

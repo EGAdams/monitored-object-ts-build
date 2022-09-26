@@ -1,4 +1,4 @@
-import IRunner from './IRunner';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  *
  * @param {object} configuration_object {
@@ -10,7 +10,7 @@ import IRunner from './IRunner';
  * real life you probably would be making AJAX calls
  */
 export default class SourceData {
-    RunnerObject: IRunner;
+    RunnerObject: any;
     url:          string;
     api_path:     string;
     constructor( configuration_object ) {
