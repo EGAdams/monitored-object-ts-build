@@ -12,11 +12,9 @@
 export default class SourceData {
     RunnerObject: any;
     url:          string;
-    api_path:     string;
     constructor( configuration_object ) {
         this.RunnerObject = configuration_object.runner;
-        this.url          = configuration_object.url;
-    }
+        this.url          = configuration_object.url; }
 
     /**
      * selects all objects from the database
@@ -26,8 +24,7 @@ export default class SourceData {
         const api_path = this.url + "object/selectAll";
         const runner = new this.RunnerObject( api_path );
         const run_config = { type: "GET" }
-        runner.run( run_config, callback );
-    }
+        runner.run( run_config, callback ); }
 
     /**
      * selects one object from the database
@@ -37,8 +34,7 @@ export default class SourceData {
         const config = { api_path: this.url + "object/select" };
         const runner = new this.RunnerObject( config );
         const run_config = { type: "GET", object_view_id: data_config.object_view_id }
-        runner.run( run_config, callback );
-    }
+        runner.run( run_config, callback ); }
 
     /**
      * Will insert an object into the database.
