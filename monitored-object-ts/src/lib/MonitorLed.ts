@@ -15,9 +15,10 @@ class MonitorLed {
         this.FAIL_COLOR    = "#fb6666"; // lightred is not understood by CSS.  Whaaa... ??
     }
 
-    setFail() {
+    setFail( fail_message : string ) {
         this.setLedBackgroundColor( this.FAIL_COLOR );
-        this.setLedTextColor(       "white"         ); }
+        this.setLedTextColor(       "white"         );
+        this.setLedText(            fail_message    ); }
 
     setLedBackgroundColor( newColor ) { this.classObject.background_color = newColor; }
     setLedTextColor(       newColor ) { this.classObject.color            = newColor; }
