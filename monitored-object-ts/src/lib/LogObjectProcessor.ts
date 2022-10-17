@@ -6,40 +6,42 @@
  *
  * @class LogObjectProcessor
  */
-import FreshToolBox from "./FreshToolBox";
-import ILogObject from "./ILogObject";
-import { LogObjectContainer } from "./LogObjectContainer";
-export class LogObjectProcessor  {
-    logObjectContainer: LogObjectContainer;
-    writtenLogs:   Array< ILogObject > = [];
-    unwrittenLogs: Array< ILogObject > = [];
+ import FreshToolBox from "./FreshToolBox";
+import ILogObject  from "./ILogObject";
+ import { LogObjectContainer } from "./LogObjectContainer";
+ export class LogObjectProcessor  {
+     logObjectContainer: LogObjectContainer;
+     writtenLogs:   Array< ILogObject > = [];
+     unwrittenLogs: Array< ILogObject > = [];
 
-    constructor( logObjectContainerArg: LogObjectContainer ) {
-        console.log( 'constructing LogObjectProcessor object...' );
-        this.logObjectContainer = logObjectContainerArg; }
+     constructor( logObjectContainerArg: LogObjectContainer ) {
+         console.log( 'constructing LogObjectProcessor object...' );
+         this.logObjectContainer = logObjectContainerArg; }
 
-    updateQue() {
-        const freshData = this.logObjectContainer.getLogObjects();
-        for ( const logObject in freshData ) {
-            this.addLog( freshData[ logObject ]); }}
+     updateQue() {
+         const freshData = this.logObjectContainer.getLogObjects();
+         // tslint:disable-next-line:forin
+         for ( const logObject in freshData ) {
+             this.addLog( freshData[ logObject ]); }}
 
-    addLog( logToAdd: ILogObject ): void {
-        if ( !FreshToolBox.isInArray( logToAdd, this.writtenLogs )) {
-                this.unwrittenLogs.push( logToAdd ); }}
+     addLog( logToAdd: ILogObject ): void {
+         if ( !FreshToolBox.isInArray( logToAdd, this.writtenLogs )) {
+                 this.unwrittenLogs.push( logToAdd ); }}
 
-    processLogObjects(): void {
-        for ( const logObject in this.unwrittenLogs ) {
-            this.writtenLogs.push( this.unwrittenLogs[ logObject ]); }
-        this.unwrittenLogs = []; }
+     processLogObjects(): void {
+         // tslint:disable-next-line:forin
+         for ( const logObject in this.unwrittenLogs ) {
+             this.writtenLogs.push( this.unwrittenLogs[ logObject ]); }
+         this.unwrittenLogs = []; }
 
-    getWrittenLogs(): Array< ILogObject > {
-        return this.writtenLogs; }
+     getWrittenLogs(): Array< ILogObject > {
+         return this.writtenLogs; }
 
-    getUnwrittenLogs(): Array< ILogObject > {
-        return this.unwrittenLogs; }
+     getUnwrittenLogs(): Array< ILogObject > {
+         return this.unwrittenLogs; }
 
-    clearLogs(): void {
-        this.writtenLogs = [];
-        this.unwrittenLogs = [];
-        this.logObjectContainer.clearLogs(); }
-}
+     clearLogs(): void {
+         this.writtenLogs = [];
+         this.unwrittenLogs = [];
+         this.logObjectContainer.clearLogs(); }
+ }

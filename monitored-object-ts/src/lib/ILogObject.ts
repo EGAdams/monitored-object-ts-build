@@ -6,9 +6,9 @@
  * @export
  * @interface ILogObject
  */
-export default interface ILogObject {
-    id: string;
+ export default interface ILogObject {
+    id:        string;
     timestamp: number; // timestamp in milliseconds since epoch
-    message: string;
-    method: string;
+    message:   string;
+    method:    string;
 }

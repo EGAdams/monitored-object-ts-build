@@ -4,7 +4,7 @@
  */
 type IApiArgs = {
     thisObject: any;
-    trigger: string;
+    trigger: string;  // next function
     query: string;
     data: any;
 };

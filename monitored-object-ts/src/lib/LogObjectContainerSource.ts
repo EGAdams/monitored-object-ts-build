@@ -2,52 +2,54 @@
 /*
  *  class LogObjectContainerSource
  */
+import FetchRunner from "./FetchRunner";
 import ILogObject from "./ILogObject";
-import IRunner from "./IRunner";
-import { ISourceConfig } from "./ISourceConfig";
+import IQueryResultProcessor from "./IQueryResultProcessor";
+import ISourceConfig from "./ISourceConfig";
+import ISourceQueryConfig from "./ISourceQueryConfig";
 import { LogObjectContainer } from "./LogObjectContainer";
 import { LogObjectProcessor } from "./LogObjectProcessor";
-import Model from "./Model";
+import Model from './Model';
 import SourceData from "./SourceData";
 
-export class LogObjectContainerSource {
+export class LogObjectContainerSource implements IQueryResultProcessor {
     logObjectContainer: LogObjectContainer;
     logObjectProcessor: LogObjectProcessor;
-    runner: IRunner;
-    config: ISourceConfig;
-    url:    string;
-    model:  Model;
-    constructor( _config: ISourceConfig ) { // config needed to construct SourceData object
-        this.config             = _config;
+    model: Model;
+    config: ISourceConfig
+    source_query_config: ISourceQueryConfig;
+    constructor( _config: ISourceConfig ) {
+        this.config = _config;
         this.logObjectContainer = new LogObjectContainer();
         this.logObjectProcessor = new LogObjectProcessor( this.logObjectContainer );
-        const sourceData        = new SourceData( _config );
-        this.model              = new Model( sourceData ); }
+        this.model = new Model( new SourceData({ Runner: FetchRunner, url: _config.location }));
+        this.source_query_config = { object_view_id: _config.object_id, object_data: {}}; }
 
     getWrittenLogs () { return this.logObjectProcessor.getWrittenLogs(); }
 
-    refresh( identifier: string ) {
+    refresh() {
         if ( this.config.type === "url" ) {
-            this.refreshFromDatabase( identifier );
-        } else if ( this.config.type === "file" ) { this.refreshFromFile( this.config.location ); }}
+            this.refreshFromDatabase();
+        } else if ( this.config.type === "file" ) {
+            this.refreshFromFile( this.config.location );
+        }}
 
-    refreshFromDatabase( id: string ) { this.model.selectObject( { object_view_id: id }, this.consumeData ); }
+    refreshFromDatabase() { this.model.selectObject( this.source_query_config, this ); }
 
-    consumeData( _event: any, result: { thisObject: any; data: string[][]; }) {
-        if ( result.data.length  === 0 || result.data[ 0 ][ 0 ].length === 0 ) { return; }
-        const object_data = JSON.parse( result.data[ 0 ][ 0 ] );
+    processQueryResult( resultProcessor: LogObjectContainerSource, result: any ) {
+        if ( result.length  === 0 ) { return; }
+        const object_data = JSON.parse( result.object_data );
         const logObjects = object_data.logObjects;
         for ( const logObject of logObjects ) {
-            result.thisObject.logObjectContainer.addLog( logObject );
-        }
-        result.thisObject.logObjectProcessor.updateQue();
-        result.thisObject.logObjectProcessor.processLogObjects(); }
+            resultProcessor.logObjectContainer.addLog( logObject ); }
+        resultProcessor.logObjectProcessor.updateQue();
+        resultProcessor.logObjectProcessor.processLogObjects(); }
 
     refreshFromFile( file_path: string ) {
         fetch( file_path )
             .then( response => response.text() )
             .then( text => {
-                text = text.replaceAll( '\r', '' );
+                text = text.split( '\r' ).join( '' ); // if performance is an issue, change this maybe.
                 const file_array = text.split( "\n" );
                 const log_objects: ILogObject[] = [];
                 let parsed_line: ILogObject = { id: "", timestamp: 0, message: "", method: "" };
@@ -66,5 +68,6 @@ export class LogObjectContainerSource {
                 }
                 this.logObjectProcessor.updateQue();         // from log object container to internal Q
                 this.logObjectProcessor.processLogObjects(); // from internal Q to written log objects
-            }); }
+            });
+    }
 }

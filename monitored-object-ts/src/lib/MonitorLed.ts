@@ -20,9 +20,9 @@ class MonitorLed {
         this.setLedTextColor(       "white"         );
         this.setLedText(            fail_message    ); }
 
-    setLedBackgroundColor( newColor ) { this.classObject.background_color = newColor; }
-    setLedTextColor(       newColor ) { this.classObject.color            = newColor; }
-    setLedText(            newText  ) { this.ledText                      = newText ; }
+    setLedBackgroundColor( newColor : string ) { this.classObject.background_color = newColor; }
+    setLedTextColor(       newColor : string ) { this.classObject.color            = newColor; }
+    setLedText(            newText  : string ) { this.ledText                      = newText ; }
 }
 
 export default MonitorLed;

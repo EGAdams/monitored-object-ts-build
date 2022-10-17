@@ -1,9 +1,6 @@
-# log-object-processor
+# monitored-object-ts
 
-Controls an internal Q for processing logs.
+Extend this object to enable objects to be monitored.
 
 
-
-version:1.0.25 fixed file location. -july.2.2022
-version:1.0.26 removed construction message. -july.2.2022
-version:1.0.27 added return from consumeData() if there is no data. -august.2.2022
+version:1.0.3 Updated typescript objects to match the ones in the-factory project.

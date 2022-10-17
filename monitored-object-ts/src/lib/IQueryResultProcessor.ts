@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  *
  * @description
@@ -8,5 +7,5 @@
  * @interface IQueryResultProcessor
  */
  export default interface IQueryResultProcessor {
-    processQueryResult( queryResultToBeProcessed: any ): void;
+    processQueryResult(thisObject: IQueryResultProcessor, queryResultToBeProcessed: any): void;
 }
