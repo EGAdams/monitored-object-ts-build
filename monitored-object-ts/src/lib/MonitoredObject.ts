@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import FetchRunner from "./FetchRunner.js";
 import ILogObject       from "./ILogObject.js";
 import LogObjectFactory from "./LogObjectFactory.js";
 import Model            from "./Model.js";
@@ -9,15 +10,16 @@ import SourceData       from "./SourceData.js";
 /** @class  MonitoredObject */
 export default class MonitoredObject {
     object_view_id:     string;
+    data_source_location: string;
     logObjects:         ILogObject[];
     model:              Model;
     logObjectFactory:   LogObjectFactory;
     monitorLed:         MonitorLed;
     data_config:        MonitoredObjectConfig;
-    constructor( config: { new_id: any; } ) {
+    constructor( config: { new_id: string, data_source_location: string; } ) {
         this.object_view_id    = `${ this.constructor.name }_${ config.new_id }`;
         this.logObjects        = [];
-        this.model             = new Model( new SourceData( config ));
+        this.model             = new Model( new SourceData({ Runner: FetchRunner, url: config.data_source_location }));
         this.logObjectFactory  = new LogObjectFactory();
         this.monitorLed        = new MonitorLed();
         const data_config        = { object_view_id: this.object_view_id, object_data: JSON.stringify( this )};

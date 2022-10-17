@@ -12,6 +12,7 @@ import ISourceQueryConfig from './ISourceQueryConfig';
  *
  */
 export default class SourceData {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     RunnerObject: any;
     url:          string;
     constructor( configuration_object: ISourceDataConfig ) {
