@@ -19,7 +19,7 @@ import MonitoredObject from "./MonitoredObject";
 export class LogObjectProcessorTest extends MonitoredObject implements ITestable {
     writtenLogs: Array< ILogObject > = [];
     constructor() {
-        super( { new_id: "42" });
+        super( { new_id: "42", data_source_location: "http://localhost:8080" });
         console.log( 'constructing LogObjectProcessorTest object...' ); }
     testMe(): void {
         const logObjectContainer = new LogObjectContainer();

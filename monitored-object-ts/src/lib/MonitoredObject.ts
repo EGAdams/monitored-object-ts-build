@@ -4,7 +4,7 @@ import ILogObject       from "./ILogObject.js";
 import LogObjectFactory from "./LogObjectFactory.js";
 import Model            from "./Model.js";
 import MonitorLed       from "./MonitorLed.js";
-// tslint:disable-next-line:ordered-imports
+// tslint:disable-next-line: ordered-imports
 import MonitoredObjectConfig from './MonitoredObjectConfig.js';
 import SourceData       from "./SourceData.js";
 /** @class  MonitoredObject */
@@ -23,14 +23,14 @@ export default class MonitoredObject {
         this.logObjectFactory  = new LogObjectFactory();
         this.monitorLed        = new MonitorLed();
         const data_config        = { object_view_id: this.object_view_id, object_data: JSON.stringify( this )};
-        this.model.insertObject( data_config, this.processQueryResult ); } // xtra line of code, but more readable
+        this.model.insertObject( data_config, this ); } // xtra line of code, but more readable
 
     logUpdate( message : string ) {
         if ( !this.object_view_id ) {  console.log( "*** ERROR: object needs an id to log. ***" ); return; }
         if ( message.includes( "ERROR" )) { this.monitorLed.setFail( message ); }
         this.logObjects.push( this.logObjectFactory.createLogObject( message, this                   ));
         const data_config = { object_view_id: this.object_view_id, object_data: JSON.stringify( this )};
-        this.model.updateObject( data_config, this.processQueryResult                                ); }
+        this.model.updateObject( data_config, this                                                   ); }
 
     processQueryResult( _event: any, results: { data: string | any[]; } ) { if ( results.data.length > 0 ) { console.log( results.data ); }}
     getObjectViewId() { return this.object_view_id; }
