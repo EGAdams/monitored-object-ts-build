@@ -14,7 +14,7 @@ export class Tester {
                 const subject = new Subject[ specimen ]();
                 console.log( `\nbegin${ specimen } test...` );
                 subject.testMe();
-                console.log( `end ${ specimen } test.\n" );
+                console.log( `end ${ specimen } test.\n` );
             }
         });
     }
