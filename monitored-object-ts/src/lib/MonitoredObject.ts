@@ -22,7 +22,7 @@ export class MonitoredObject {
         this.logObjects        = [ this.logObjectFactory.createLogObject( "constructing...", this )];
         if ( config.data_source_location?.length === 0 && document.querySelector( '.data-source-location' )) {
             config.data_source_location = document.querySelector( '.data-source-location' )?.innerHTML || "" }
-        this.model             = new Model( new SourceData({ Runner: FetchRunner, url: config.data_source_location }));
+        this.model             = new Model( new SourceData({ Runner: FetchRunner, url: config.data_source_location! }));
         this.monitorLed        = new MonitorLed();
         this.stringifier       = new Stringifier();
         const data_config        = { object_view_id: this.object_view_id, object_data: this.stringifier.stringify( this, 3, null, 2 )};
@@ -30,11 +30,17 @@ export class MonitoredObject {
 
     logUpdate( message : string ) {
         if ( !this.object_view_id ) {  console.log( "*** ERROR: object needs an id to log. ***" ); return; }
-        if ( message.includes( "ERROR" )) { this.monitorLed.setFail( message ); } else { this.monitorLed.setLedText( message ); }
+        if ( message.includes( "ERROR" )) {
+            this.monitorLed.setFail( message );
+        } else if ( message.includes( "finished" )) {
+            this.monitorLed.setPass( message );
+        } else {
+            this.monitorLed.setLedText( message ); }
         this.logObjects.push( this.logObjectFactory.createLogObject( message, this                   ));
         const data_config = { object_view_id: this.object_view_id, object_data: this.stringifier.stringify( this, 3, null, 2 )};
         this.model.updateObject( data_config, this                                                   ); }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     processQueryResult( _event: any, results: { data: string | any[]; } ) { if ( results.data.length > 0 ) { console.log( results.data ); }}
     getObjectViewId() { return this.object_view_id; }
 }

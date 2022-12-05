@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /** @class Stringifier */
 export default class Stringifier {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    constructor() { }
+    constructor() {}
     // replacer: ((this: any, key: string, value: any ) => any ) | null, ... notice the parentheses, these are needed.
+    // eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any
     stringify ( val: any, depth: number, replacer: ((this: any, key: string, value: any ) => any ) | null, space?: string | number, onGetObjID?: ( val: object ) => string ): string {
         depth = isNaN( +depth ) ? 1 : depth;
         const recursMap = new WeakMap();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         function _build ( val: any, depth: number, o?: any, a?: boolean, r?: boolean ) {
             return !val || typeof val !== 'object' ? val
                 : ( r = recursMap.has( val ),

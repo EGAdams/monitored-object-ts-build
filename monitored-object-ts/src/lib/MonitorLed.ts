@@ -19,6 +19,11 @@ class MonitorLed {
         this.setLedBackgroundColor( this.FAIL_COLOR );
         this.setLedTextColor(       "white"         );
         this.setLedText(            fail_message    ); }
+    
+    setPass( pass_message : string ) {
+        this.setLedBackgroundColor( this.PASS_COLOR );
+        this.setLedTextColor(       "black"         );
+        this.setLedText(            pass_message    ); }
 
     setLedBackgroundColor( newColor : string ) { this.classObject.background_color = newColor; }
     setLedTextColor(       newColor : string ) { this.classObject.color            = newColor; }
