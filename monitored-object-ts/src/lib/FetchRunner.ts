@@ -16,14 +16,19 @@ export default class FetchRunner {
     async run( apiArgs: { type: string; }, callbackObject : IQueryResultProcessor ): Promise< void > {
         this.fetch_options = {
             method:  apiArgs.type,
-            // mode:    'no-cors',
+            mode:    apiArgs.type === "POST" ? /* POST */ 'no-cors'                 : /* GET */ undefined,
             headers: apiArgs.type === "POST" ? /* POST */ this.json_header          : /* GET */ this.url_encoded_header,
             body:    apiArgs.type === "POST" ? /* POST */ JSON.stringify( apiArgs ) : /* GET */ undefined
         };
-        fetch( this.url, this.fetch_options ).then( res => {
-            return res.json();
-        }).then( data => {
-            callbackObject.processQueryResult( callbackObject, data );
-        }); }
+        try {
+            fetch( this.url, this.fetch_options ).then( res => {
+                return res.text();
+            }).then( data => {
+                callbackObject.processQueryResult( callbackObject, data );
+            });
+        } catch ( fetch_error ) {
+            console.log( fetch_error );
+        }
+    }
 }
 // xhr.setRequestHeader( "Content-Type", "application/x-www-form-urlencoded" ); // allows "sql="... syntax!

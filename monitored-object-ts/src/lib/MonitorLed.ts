@@ -1,4 +1,4 @@
-import MonitorLedClassObject from "./MonitorLedClassObject.js";
+import MonitorLedClassObject from "./MonitorLedClassObject";
 /** @class MonitorLed */
 
 class MonitorLed {

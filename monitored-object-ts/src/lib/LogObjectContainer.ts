@@ -1,5 +1,6 @@
 import FreshToolBox from "./FreshToolBox";
 import ILogObject   from "./ILogObject";
+
 /**
  * @description
  * container for log objects.

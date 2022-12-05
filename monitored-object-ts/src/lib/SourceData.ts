@@ -12,7 +12,6 @@ import ISourceQueryConfig from './ISourceQueryConfig';
  *
  */
 export default class SourceData {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     RunnerObject: any;
     url:          string;
     constructor( configuration_object: ISourceDataConfig ) {
@@ -27,14 +26,14 @@ export default class SourceData {
         const api_path = this.url + "object/selectAll";
         const runner = new this.RunnerObject( api_path );
         const run_config = { type: "GET" }
-        runner.run( run_config, callbackObject.processQueryResult ); }
+        runner.run( run_config, callbackObject ); }
 
     /**
      * selects one object from the database
      * @param {function} callbackObject The callbackObject to fire upon retrieving data
      */
     selectObject( query_config: ISourceQueryConfig, callbackObject: IQueryResultProcessor ) {
-        const config = { api_path: `${ this.url } object/select/ ${ query_config.object_view_id }` };
+        const config = { api_path: `${ this.url }object/select/${ query_config.object_view_id }` };
         const runner = new this.RunnerObject( config );
         const run_config = { type: "GET", object_view_id: query_config.object_view_id }
         runner.run( run_config, callbackObject ); }

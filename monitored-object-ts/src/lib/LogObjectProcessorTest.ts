@@ -6,7 +6,7 @@ import { LogObjectContainer } from "./LogObjectContainer";
 // import { LogObjectContainerSource } from "./LogObjectContainerSource";
 import LogObjectFactory from "./LogObjectFactory";
 import { LogObjectProcessor } from "./LogObjectProcessor";
-import MonitoredObject from "./MonitoredObject";
+import { MonitoredObject } from "./MonitoredObject";
 /**
  * @description
  * creates 10 log objects and adds them to a log object container.
